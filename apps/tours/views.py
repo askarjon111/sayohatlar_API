@@ -3,7 +3,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from apps.tours.models import Category, Country, Destination
-from apps.tours.serializers import CategorySerializer, CountrySerializer, DestinationSerializer
+from apps.tours.serializers import CategorySerializer, CountrySerializer, DestinationSerializer, RestaurantSerializer
 
 
 @api_view(['GET'])
@@ -25,4 +25,13 @@ def featured_destinations_view(request):
     destinations = Destination.objects.all()[:10]
     serializer = DestinationSerializer(destinations, many=True)
     return Response(serializer.data, 200)
+
+
+
+@api_view(['GET'])
+def featured_restaurants_view(request):
+    restaurants = Destination.objects.all()[:10]
+    serializer = RestaurantSerializer(restaurants, many=True)
+    return Response(serializer.data, 200)
+
 

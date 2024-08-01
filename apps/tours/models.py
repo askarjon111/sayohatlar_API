@@ -119,3 +119,14 @@ class TourReview(BaseModel):
     rating = models.PositiveSmallIntegerField(default=1)
     body = models.TextField()
     tour = models.ForeignKey(Tour, models.CASCADE, related_name='reviews')
+
+
+class Restaurant(BaseModel):
+    name = models.CharField(max_length=250)
+    image = models.ImageField(upload_to='images/restaurants')
+    destination = models.ForeignKey(Destination, models.CASCADE, related_name='restaurants')
+    address = models.CharField(max_length=500, blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
