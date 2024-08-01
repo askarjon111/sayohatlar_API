@@ -131,7 +131,7 @@ STATICFILES_DIRS = [
 
 
 CKEDITOR_CONFIGS = {
-    'awesome_ckeditor': {
+    'default': {
         'toolbar': 'Full',
     },
 }

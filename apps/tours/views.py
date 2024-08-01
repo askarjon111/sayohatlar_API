@@ -2,8 +2,8 @@ from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from apps.tours.models import Category, Country, Destination
-from apps.tours.serializers import CategorySerializer, CountrySerializer, DestinationSerializer, RestaurantSerializer
+from apps.tours.models import Category, Country, Destination, Tour
+from apps.tours.serializers import CategorySerializer, CountrySerializer, DestinationSerializer, RestaurantSerializer, TourSerializer
 
 
 @api_view(['GET'])
@@ -35,3 +35,9 @@ def featured_restaurants_view(request):
     return Response(serializer.data, 200)
 
 
+@api_view(['GET'])
+def tours_by_destination_view(request, pk):
+    destination = Destination.objects.get(id=pk)
+    tours = Tour.objects.filter(destinations__in=[destination])
+    serializer = TourSerializer(tours, many=True)
+    return Response(serializer.data, 200)
