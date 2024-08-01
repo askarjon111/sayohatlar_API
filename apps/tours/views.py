@@ -2,8 +2,8 @@ from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from apps.tours.models import Category, Country, Destination, Tour
-from apps.tours.serializers import CategorySerializer, CountrySerializer, DestinationSerializer, RestaurantSerializer, TourSerializer
+from apps.tours.models import Category, Country, Destination, Hotel, Tour
+from apps.tours.serializers import CategorySerializer, CountrySerializer, DestinationSerializer, HotelSerializer, RestaurantSerializer, TourSerializer
 
 
 @api_view(['GET'])
@@ -49,3 +49,12 @@ def tour_detail_view(request, pk):
     serializer = TourSerializer(tour)
 
     return Response(serializer.data, 200)
+
+
+@api_view(['GET'])
+def hotel_detail_view(request, pk):
+    hotel = Hotel.objects.get(id=pk)
+    serializer = HotelSerializer(hotel)
+
+    return Response(serializer.data, 200)
+

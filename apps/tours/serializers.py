@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from apps.tours.models import Category, Country, Destination, Restaurant, Tour
+from apps.tours.models import Category, Country, Destination, Hotel, Restaurant, Tour
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -33,6 +33,15 @@ class RestaurantSerializer(serializers.ModelSerializer):
 
 
 class TourSerializer(serializers.ModelSerializer):
+    destinations = DestinationSerializer(many=True)
+
     class Meta:
         model = Tour
         fields = '__all__'
+
+
+class HotelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Hotel
+        fields = '__all__'
+
