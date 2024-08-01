@@ -41,3 +41,11 @@ def tours_by_destination_view(request, pk):
     tours = Tour.objects.filter(destinations__in=[destination])
     serializer = TourSerializer(tours, many=True)
     return Response(serializer.data, 200)
+
+
+@api_view(['GET'])
+def tour_detail_view(request, pk):
+    tour = Tour.objects.get(id=pk)
+    serializer = TourSerializer(tour)
+
+    return Response(serializer.data, 200)
