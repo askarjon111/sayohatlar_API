@@ -44,6 +44,27 @@ def tours_by_destination_view(request, pk):
 
 
 @api_view(['GET'])
+def tour_list_view(request):
+    tours = Tour.objects.all()
+    category = request.GET.get('category')
+    destination = request.GET.get('destination')
+    country = request.GET.get('country')
+
+    if category:
+        category = Category.objects.get(id=category)
+        tours = tours.filter(categories__in=[category,])
+    if destination:
+        destination = Destination.objects.get(id=destination)
+        tours = tours.filter(destinations__in=[destination,])
+    if country:
+        country = Country.objects.get(id=country)
+        tours = tours.filter(countries__in=[country,])
+
+    serializer = TourSerializer(tours, many=True)
+
+    return Response(serializer.data, 200)
+
+@api_view(['GET'])
 def tour_detail_view(request, pk):
     tour = Tour.objects.get(id=pk)
     serializer = TourSerializer(tour)
