@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
 from apps.tours.views import TourViewSet, featured_categories_view, featured_countries_view, featured_destinations_view, featured_restaurants_view, hotel_detail_view, tour_detail_view, tour_list_view, tours_by_destination_view
@@ -20,7 +20,8 @@ urlpatterns = [
          name='tour_detail'),
     path('hotels/<int:pk>/', hotel_detail_view,
          name='hotel_detail'),
-#     path('tours/', tour_list_view, name='tour_list'),
+    #     path('tours/', tour_list_view, name='tour_list'),
+    path('', include(router.urls)),
 ]
 
-urlpatterns += router.urls
+# urlpatterns += router.urls

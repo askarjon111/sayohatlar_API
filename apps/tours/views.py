@@ -2,6 +2,7 @@ from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import viewsets
+from rest_framework.decorators import action
 
 from apps.tours.models import Category, Country, Destination, Hotel, Tour
 from apps.tours.serializers import CategorySerializer, CountrySerializer, DestinationSerializer, HotelSerializer, RestaurantSerializer, TourSerializer
@@ -91,3 +92,7 @@ class TourViewSet(viewsets.ViewSet):
         tours = Tour.objects.get(pk=pk)
         serializer = TourSerializer(tours)
         return Response(serializer.data)
+
+    def destroy(self, request, pk=None):
+        tour = Tour.objects.get(pk=pk).delete()
+        return Response(status=204)
