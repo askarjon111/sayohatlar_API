@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework import viewsets
 
 from apps.tours.models import Category, Country, Destination, Hotel, Tour
 from apps.tours.serializers import CategorySerializer, CountrySerializer, DestinationSerializer, HotelSerializer, RestaurantSerializer, TourSerializer
@@ -79,3 +80,14 @@ def hotel_detail_view(request, pk):
 
     return Response(serializer.data, 200)
 
+
+class TourViewSet(viewsets.ViewSet):
+    def list(self, request):
+        tours = Tour.objects.all()
+        serializer = TourSerializer(tours, many=True)
+        return Response(serializer.data, 200)
+
+    def retrieve(self, request, pk=None):
+        tours = Tour.objects.get(pk=pk)
+        serializer = TourSerializer(tours)
+        return Response(serializer.data)
